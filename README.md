@@ -10,3 +10,7 @@ Start Date: 10/05
 🐢 10/12
 
 Replaced pd datatypes with sql datatypes and connected to DB.
+
+🐢 10/13
+
+MVP complete. Uploaded entire csv file. Closed cursor.
