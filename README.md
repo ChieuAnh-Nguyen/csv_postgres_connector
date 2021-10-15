@@ -14,3 +14,7 @@ Replaced pd datatypes with sql datatypes and connected to DB.
 🐢 10/13
 
 MVP complete. Uploaded entire csv file. Closed cursor.
+
+🐢 10/14
+
+Started automation
