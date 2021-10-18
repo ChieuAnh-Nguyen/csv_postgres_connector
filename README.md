@@ -3,7 +3,7 @@
 Goals:
 
 1. Connect to Postgres using psycopg2
-2. Import csv's into a Postgres DB
+2. Import multiple csv's into a Postgres DB at a time
 
 Start Date: 10/12
 
@@ -25,4 +25,4 @@ Rename the csv before it gets added into list and rename their column names to b
 
 🐢 10/18
 
-Can now import any csv into Postgres DB. Next steps: turn code into functions.
+Finished! Created functions and added to a .py file. Can now import multiple csv into Postgres DB at a time!
