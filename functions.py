@@ -1,7 +1,15 @@
+# import os
+# import re
+# import pandas as pd
+# import psycopg2
 import os
 import re
 import pandas as pd
 import psycopg2
+import postgres_creds as cred
+# Since changes were made in cred and our ipynb can't see new changes, we use Importlib to reload the module
+import importlib
+importlib.reload(cred)
 
 # 1. add csv's in current directory to a list
 # re.sub(r'[^\w\.]', '_', csv) substitutes all non word and num characters
@@ -58,12 +66,16 @@ def clean_columns(dataframe):
     column_dtype = ", ".join("{} {}".format(col_name, dtype) for (col_name, dtype) in zip(dataframe_columns, replaced_dtypes))
 
     return dataframe_columns, column_dtype
+
 # Creates DB table name
-def upload_csv_to_DB(host,user,password,database,table_name, dataframe,dataframe_columns,column_dtype):
-    conn = psycopg2.connect('host = %s,user = %s, password = %s,database = %s' % (host,user,password,database))
+def upload_csv_to_DB(host,user,password,database,dataframe,file_name,dataframe_columns,column_dtype):
+    conn = psycopg2.connect(host = host,
+    user = user, 
+    password = password,
+    database = database)
     cursor = conn.cursor()
 
-    db_table_name = table_name.split('.')[0]
+    db_table_name = file_name.split('.')[0]
     #dataframe.columns as a str
     dataframe_columns_insertable = ', '.join(dataframe_columns)
     # 2. create queries
@@ -92,3 +104,23 @@ def upload_csv_to_DB(host,user,password,database,table_name, dataframe,dataframe
     
 
     cursor.close()
+
+
+# Main.py
+new_directory = "imported_csv"
+
+# Create list of csv
+csv_files = create_csv_list()
+
+# Create new directory and move files
+change_directory (csv_files, new_directory)
+
+# Create dict
+df_dict = create_dict(csv_files, new_directory)
+
+for key in df_dict:
+# value
+    dataframe = df_dict[key]
+    dataframe_columns, column_dtype = clean_columns(dataframe)
+
+    upload_csv_to_DB(cred.host, cred.user, cred.password, cred.database, dataframe,key , dataframe_columns, column_dtype)
