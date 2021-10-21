@@ -1,7 +1,3 @@
-# import os
-# import re
-# import pandas as pd
-# import psycopg2
 import os
 import re
 import pandas as pd
@@ -67,15 +63,18 @@ def clean_columns(dataframe):
 
     return dataframe_columns, column_dtype
 
-# Creates DB table name
-def upload_csv_to_DB(host,user,password,database,dataframe,file_name,dataframe_columns,column_dtype):
+
+def connect_to_postgres(host,user,password,database):
     conn = psycopg2.connect(host = host,
     user = user, 
     password = password,
     database = database)
-    cursor = conn.cursor()
 
-    db_table_name = file_name.split('.')[0]
+    return conn
+# Creates DB table name
+def upload_csv_to_DB(conn,dataframe, key, dataframe_columns,column_dtype):
+    cursor = conn.cursor()
+    db_table_name = key.split('.')[0]
     #dataframe.columns as a str
     dataframe_columns_insertable = ', '.join(dataframe_columns)
     # 2. create queries
@@ -104,23 +103,3 @@ def upload_csv_to_DB(host,user,password,database,dataframe,file_name,dataframe_c
     
 
     cursor.close()
-
-
-# Main.py
-new_directory = "imported_csv"
-
-# Create list of csv
-csv_files = create_csv_list()
-
-# Create new directory and move files
-change_directory (csv_files, new_directory)
-
-# Create dict
-df_dict = create_dict(csv_files, new_directory)
-
-for key in df_dict:
-# value
-    dataframe = df_dict[key]
-    dataframe_columns, column_dtype = clean_columns(dataframe)
-
-    upload_csv_to_DB(cred.host, cred.user, cred.password, cred.database, dataframe,key , dataframe_columns, column_dtype)
