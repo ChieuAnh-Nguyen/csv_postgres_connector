@@ -2,7 +2,9 @@
 
 ## About:
 
-Uploads one or multiple CSVs into postgres DB at a time. Code can be reused for other DBs by creating function similar to connect_to_postgres() in functions.py or check out my other repo "csv_mysql_connecter"
+Uploads one or multiple CSVs into postgres DB at a time. Just clone this repo, add your csv into the folder, modify main.py, and run it.
+
+Code can be reused for other DBs by creating function similar to connect_to_postgres() in functions.py or check out my other repo "csv_mysql_connecter"
 
 ## Goals:
 
