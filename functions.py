@@ -7,7 +7,7 @@ import postgres_creds as cred
 import importlib
 importlib.reload(cred)
 
-# 1. add csv's in current directory to a list
+# add csv's in current directory to a list
 # re.sub(r'[^\w\.]', '_', csv) substitutes all non word and num characters
 def create_csv_list():
     csv_files = []
@@ -63,7 +63,7 @@ def clean_columns(dataframe):
 
     return dataframe_columns, column_dtype
 
-
+# Connects to postgres db
 def connect_to_postgres(host,user,password,database):
     conn = psycopg2.connect(host = host,
     user = user, 
@@ -77,7 +77,7 @@ def upload_csv_to_DB(conn,dataframe, key, dataframe_columns,column_dtype):
     db_table_name = key.split('.')[0]
     #dataframe.columns as a str
     dataframe_columns_insertable = ', '.join(dataframe_columns)
-    # 2. create queries
+    # create queries
     drop_table = 'DROP TABLE IF EXISTS ' + db_table_name
     create_table = 'CREATE TABLE ' + db_table_name + " (" + column_dtype + ")"
     insert_into_table = 'INSERT INTO ' + db_table_name + '(' + dataframe_columns_insertable + ')' \
@@ -87,16 +87,16 @@ def upload_csv_to_DB(conn,dataframe, key, dataframe_columns,column_dtype):
 
     cursor.execute(drop_table)
     cursor.execute(create_table)
-    # 3. create insert into function
+    # create insert into function
     for index, row in dataframe.iterrows():
         cursor.execute(insert_into_table,row)
 
     conn.commit()
 
-    # 4. Grant access to all users
+    # Grant access to all users
     cursor.execute('GRANT SELECT, INSERT, UPDATE ON TABLE %s TO PUBLIC' % db_table_name)
 
-    # 4. Show table in DB
+    # Show table in DB
     cursor.execute(select_table)
     for each in cursor:
         print(each)

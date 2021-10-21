@@ -1,10 +1,15 @@
 # csv_postgres_connector
 
-Goals:
+## About:
+
+Uploads one or multiple CSVs into postgres DB at a time. Code can be reused for other DBs by creating function similar to connect_to_postgres() in functions.py or check out my other repo "csv_mysql_connecter"
+
+## Goals:
 
 1. Connect to Postgres using psycopg2
 2. Import multiple csv's into a Postgres DB at a time
 
+## Progress tracker:
 Start Date: 10/12
 
 🐢 10/12
@@ -25,4 +30,8 @@ Rename the csv before it gets added into list and rename their column names to b
 
 🐢 10/18
 
-Finished! Created functions and added to a .py file. Can now import multiple csv into Postgres DB at a time!
+Created functions and added to a .py file. Can now import multiple csv into Postgres DB at a time!
+
+🐢 10/20
+
+Made code reusable. Done!
