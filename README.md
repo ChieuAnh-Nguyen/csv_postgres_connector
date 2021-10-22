@@ -2,14 +2,21 @@
 
 ## About:
 
-Uploads one or multiple CSVs into postgres DB at a time. Just clone this repo, add your csv into the folder, modify main.py, and run it.
-
-Code can be reused for other DBs by creating function similar to connect_to_postgres() in functions.py or check out my other repo "csv_mysql_connecter"
+This project allows you to uploads one or multiple CSVs into postgres DB at a time. 
 
 ## Goals:
 
-1. Connect to Postgres using psycopg2
-2. Import multiple csv's into a Postgres DB at a time
+1. Gain exposure to csv to database automation and hands on exposure to data engineering
+2. Learn how to use version control git + github
+3. Familiarize with Bash and the operating system navigation
+
+## Notes
+
+1. Clone this repo
+2. Add your csv into the folder
+3. modify main.py and run it
+
+Code can be reused for other DBs by creating function similar to connect_to_postgres() in functions.py or check out my other repo "csv_mysql_connecter"
 
 ## Progress tracker:
 Start Date: 10/12
